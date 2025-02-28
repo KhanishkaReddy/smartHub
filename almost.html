@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartHub App</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        nav button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        nav button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        section {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        section:hover {
+            transform: scale(1.02);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form label {
+            margin-bottom: 5px;
+        }
+        form input, form textarea {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        form button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        .feedback {
+            color: red;
+            margin-top: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        .accordion {
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .accordion:hover {
+            background-color: #ddd;
+            transform: scale(1.02);
+        }
+        .panel {
+            padding: 0 18px;
+            display: none;
+            background-color: white;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .icon {
+            margin-right: 10px;
+        }
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .about-content p {
+            text-align: justify;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            header h1 {
+                font-size: 1.5em;
+            }
+            nav button {
+                padding: 8px 16px;
+            }
+            section {
+                margin: 10px 0;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to SmartHub</h1>
+        <nav>
+            <button onclick="toggleSection('user-type')">Sign In</button>
+        </nav>
+    </header>
+    <main>
+        <section id="user-type" class="hidden">
+            <h2>Select User Type</h2>
+            <button onclick="selectUserType('student')">Student</button>
+            <button onclick="selectUserType('faculty')">Faculty</button>
+        </section>
+        <section id="sign-in" class="hidden">
+            <h2>Sign In</h2>
+            <form id="signInForm">
+                <label for="signInEmail">Email:</label>
+                <input type="email" id="signInEmail" name="email" required>
+                <label for="signInPassword">Password:</label>
+                <input type="password" id="signInPassword" name="password" required>
+                <button type="submit">Sign In</button>
+                <div id="signInFeedback" class="feedback hidden"></div>
+            </form>
+        </section>
+        <section id="access-message">
+            <h2>Access Restricted</h2>
+            <p>You have to sign in to access the site.</p>
+        </section>
+        <section id="home" class="hidden">
+            <h2>Home</h2>
+            <p>Welcome to the home page!</p>
+            <button onclick="showGuide()">Guide</button>
+            <button onclick="askForAssistance()">Ask for Assistance</button>
+            <button onclick="recruit()">Recruit</button>
+        </section>
+        <section id="about" class="hidden">
+            <h2>About</h2>
+            <div class="about-content">
+                <p>SmartHub is a comprehensive platform designed to enhance the campus experience for students and faculty. Our goal is to provide a centralized hub for all campus-related activities, including academic resources, event management, and communication tools. Whether you're a student looking to stay on top of your coursework or a faculty member managing your classes, SmartHub has the tools you need to succeed.</p>
+            </div>
+            <button class="accordion">Our Mission</button>
+            <div class="panel">
+                <ul>
+                    <li><span class="icon">🎯</span> Create a seamless and efficient environment for academic and extracurricular activities.</li>
+                    <li><span class="icon">📅</span> Manage schedules, communicate with peers and instructors, and stay updated on campus events.</li>
+                </ul>
+            </div>
+            <button class="accordion">User Experience</button>
+            <div class="panel">
+                <ul>
+                    <li><span class="icon">👍</span> Intuitive and easy-to-use features.</li>
+                    <li><span class="icon">🔄</span> Continuous improvements based on user feedback and technological advancements.</li>
+                </ul>
+            </div>
+            <button class="accordion">Features</button>
+            <div class="panel">
+                <ul>
+                    <li><span class="icon">📚</span> Academic Resources</li>
+                    <li><span class="icon">🎉</span> Event Management</li>
+                    <li><span class="icon">💬</span> Communication Tools</li>
+                    <li><span class="icon">🗓️</span> Schedule Management</li>
+                    <li><span class="icon">👥</span> Peer and Instructor Communication</li>
+                    <li><span class="icon">📢</span> Campus Event Updates</li>
+                </ul>
+            </div>
+        </section>
+        <section id="profile" class="hidden">
+            <h2>Profile</h2>
+            <p><strong>Name:</strong> <span id="profileName"></span></p>
+            <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+            <p><strong>Role:</strong> <span id="profileRole"></span></p>
+            <p id="studentDetails" class="hidden"></p>
+        </section>
+        <section id="contact" class="hidden">
+            <h2>Contact</h2>
+            <p>If you have any questions or need further assistance, please feel free to reach out to us:</p>
+            <ul class="contact-details">
+                <li><strong>Email:</strong> contact@smarthub.com</li>
+                <li><strong>Phone:</strong> +1 (123) 456-7890</li>
+            </ul>
+        </section>
+        <section id="service" class="hidden">
+            <h2>Service</h2>
+            <p>This website provides a platform for students and faculty to sign in, access various sections, and provide feedback. It helps in managing user types and their respective access to different sections of the site.</p>
+        </section>
+        <section id="feedback" class="hidden">
+            <h2>Feedback</h2>
+            <form id="feedbackForm">
+                <label for="feedbackText">Your Feedback:</label>
+                <textarea id="feedbackText" name="feedbackText" rows="4" required></textarea>
+                <button type="submit">Submit Feedback</button>
+                <div id="feedbackMessage" class="feedback hidden"></div>
+            </form>
+        </section>
+        <section id="guide" class="hidden">
+            <h2>Guide</h2>
+            <div id="guideContent"></div>
+        </section>
+        <section id="assistance" class="hidden">
+            <h2>Ask for Assistance</h2>
+            <form id="assistanceForm">
+                <label for="assistanceDescription">Describe your problem or help needed:</label>
+                <textarea id="assistanceDescription" name="description" required></textarea>
+                <button type="submit">Post</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 SmartHub. All rights reserved.</p>
+    </footer>
+    <script>
+        // Set sample sign-in details
+        localStorage.setItem('studentEmail', 'khanishka@anurag.edu.in');
+        localStorage.setItem('studentPassword', '12345');
+        localStorage.setItem('facultyEmail', 'faculty@anurag.edu.in');
+        localStorage.setItem('facultyPassword', '12345');
+
+        function toggleSection(sectionId) {
+            const sections = document.querySelectorAll('main > section');
+            sections.forEach(section => section.classList.add('hidden'));
+            document.getElementById(sectionId).classList.remove('hidden');
+            document.getElementById(sectionId).scrollIntoView();
+        }
+
+        function selectUserType(userType) {
+            localStorage.setItem('userType', userType);
+            toggleSection('sign-in');
+        }
+
+        function handleSignIn(event) {
+            event.preventDefault();
+            const email = document.getElementById('signInEmail').value;
+            const password = document.getElementById('signInPassword').value;
+            const userType = localStorage.getItem('userType');
+            let storedEmail, storedPassword;
+
+            if (userType === 'student') {
+                storedEmail = localStorage.getItem('studentEmail');
+                storedPassword = localStorage.getItem('studentPassword');
+            } else if (userType === 'faculty') {
+                storedEmail = localStorage.getItem('facultyEmail');
+                storedPassword = localStorage.getItem('facultyPassword');
+            }
+
+            if (email === storedEmail && password === storedPassword) {
+                document.getElementById('signInFeedback').textContent = 'Sign in successful!';
+                document.getElementById('signInFeedback').classList.remove('hidden');
+                document.getElementById('access-message').classList.add('hidden');
+                setupAfterSignIn();
+            } else {
+                document.getElementById('signInFeedback').textContent = 'Invalid email or password.';
+                document.getElementById('signInFeedback').classList.remove('hidden');
+            }
+        }
+
+        function setupAfterSignIn() {
+            // Update profile information
+            const userType = localStorage.getItem('userType');
+            const userName = (userType === 'student') ? 'Khanishka' : 'Faculty Member';
+            const userEmail = (userType === 'student') ? 'khanishka@anurag.edu.in' : 'faculty@anurag.edu.in';
+            const userRole = (userType === 'student') ? 'Student' : 'Faculty';
+            
+            // Update profile section with user data
+            document.getElementById('profileName').textContent = userName;
+            document.getElementById('profileEmail').textContent = userEmail;
+            document.getElementById('profileRole').textContent = userRole;
+            if (userType === 'student') {
+                document.getElementById('studentDetails').textContent = 'Roll Number: 24EG107F59, Section: AIML-F';
+                document.getElementById('studentDetails').classList.remove('hidden');
+            }
+
+            toggleSection('home');
+
+            // Update navigation menu
+            document.querySelector('nav').innerHTML = `
+                <button onclick="toggleSection('home')">Home</button>
+                <button onclick="toggleSection('about')">About</button>
+                <button onclick="toggleSection('profile')">Profile</button>
+                <button onclick="toggleSection('contact')">Contact</button>
+                <button onclick="toggleSection('service')">Service</button>
+                <button onclick="toggleSection('feedback')">Feedback</button>
+            `;
+        }
+
+        function showGuide() {
+            toggleSection('guide');
+            const guideContent = localStorage.getItem('guideContent') || 'No guide content available.';
+            document.getElementById('guideContent').innerHTML = guideContent.split('\n\n').map((entry, index) => `
+                <div>
+                    <p>${entry.replace(/\n/g, '<br>')}</p>
+                    <button onclick="deleteEntry(${index})">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function askForAssistance() {
+            toggleSection('assistance');
+        }
+
+        function recruit() {
+            alert('Recruitment content goes here.');
+        }
+
+        function deleteEntry(index) {
+            let guideContent = localStorage.getItem('guideContent') || '';
+            let entries = guideContent.split('\n\n');
+            entries.splice(index, 1);
+            localStorage.setItem('guideContent', entries.join('\n\n'));
+            showGuide();
+        }
+
+        document.getElementById('signInForm').addEventListener('submit', handleSignIn);
+
+        document.getElementById('assistanceForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const description = document.getElementById('assistanceDescription').value;
+            const userType = localStorage.getItem('userType');
+            const email = document.getElementById('signInEmail').value;
+            let guideContent = localStorage.getItem('guideContent') || '';
+            guideContent += `\n\nUser Type: ${userType}\nEmail: ${email}\nProblem: ${description}`;
+            localStorage.setItem('guideContent', guideContent);
+            alert('Your assistance request has been posted.');
+            toggleSection('home');
+        });
+
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const feedbackText = document.getElementById('feedbackText').value;
+            if (feedbackText.trim() !== "") {
+                document.getElementById('feedbackMessage').textContent = 'Thank you for your feedback!';
+                document.getElementById('feedbackMessage').classList.remove('hidden');
+                document.getElementById('feedbackForm').reset();
+            } else {
+                document.getElementById('feedbackMessage').textContent = 'Please enter your feedback.';
+                document.getElementById('feedbackMessage').classList.remove('hidden');
+            }
+        });
+
+        // Accordion functionality
+        const accordions = document.querySelectorAll('.accordion');
+        accordions.forEach(accordion => {
+            accordion.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const panel = this.nextElementSibling;
+                if (panel.style.display === 'block') {
+                    panel.style.display = 'none';
+                } else {
+                    panel.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
